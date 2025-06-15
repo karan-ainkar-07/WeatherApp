@@ -21,12 +21,6 @@ function SearchPage() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-mono mx-1">
           Weather
         </h1>
-        <button className="rounded-full p-3 sm:p-4 bg-[#7F8CAA] dark:bg-gray-700 hover:bg-[#6a7a99] " onClick={()=>{
-          setDarkMode((prev) => prev === "" ? "dark" : "");
-          document.documentElement.classList.toggle("dark");
-          }}>
-          <img src={Darkmode?"brightness.png":"light.png"} alt="brightness" className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 transition-opacity duration-300 ease-in-out" key={Darkmode ? "moon" : "sun"} />
-        </button>
       </div>  
       {/* Search Bar */}
       <form className="flex items-stretch gap-4 max-w-5xl w-full ">
