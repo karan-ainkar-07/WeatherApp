@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import getData from "../Functions/Dispatch";
 import videos from "../Functions/Videos";
 import simplifyCondition from "../Functions/SimplifyCondition";
-
+import CustomAlert from "../Component/Alert";
 function SearchPage() {
   const currentData = useSelector((state) => state.searches.searchList);
   const searchOrder = useSelector((state) => state.searches.searchOrder);
