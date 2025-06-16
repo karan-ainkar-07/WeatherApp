@@ -11,11 +11,15 @@ function SearchPage() {
   const currentData = useSelector((state) => state.searches.searchList);
   const searchOrder = useSelector((state) => state.searches.searchOrder);
   const [input, setInput] = useState("");
-  const [Darkmode,setDarkMode] = useState("");
+  const [alert,setalert]=useState(false);
+  const [alertMessage,setalertMessage]=useState("");
   const dispatch = useDispatch();
   const navigate=useNavigate();
   return (
     <div className={`relative min-h-screen w-full bg-white dark:bg-gray-900 text-black dark:text-white px-4 py-6 sm:px-10 lg:px-24 xl:px-32 `}>
+        {alert && (
+      <CustomAlert message={alertMessage} onClose={()=>setalert(false)}/> 
+        )}
       {/* Header */}
       <div className="flex justify-between items-center mb-12">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-mono mx-1">
@@ -42,7 +46,8 @@ function SearchPage() {
                   dispatch(addSearchItem(searchItem));
                   navigate(`/${location.name}`);
                 } else {
-                  alert("City not found. Please try again.");
+                  setalertMessage(data.error.message);
+                  setalert(true);                  
                 }
                 setInput("");
               });
@@ -99,18 +104,18 @@ function SearchPage() {
         <div>
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">{Search.City}</h1>
           <div className="text-sm space-y-1 flex  gap-2 lg:gap-4">
-            <h3 className="text-[#d7d7d7] ">{Search.Time}</h3>
-            <h3 className="text-[#d7d7d7] ">{Search.Country}</h3>
-          </div>
-          <h3 className="text-md md:text-lg mt-2">{Search.Condition}</h3>
-        </div>
-        <div>
-          <h2 className="text-2xl lg:text-4xl font-bold self-start">{Search.Temperature}°C</h2>
-        </div>
-      </NavLink>
-    </div>
-  );
-})}
+                  <h3 className="text-[#d7d7d7] ">{Search.Time}</h3>
+                  <h3 className="text-[#d7d7d7] ">{Search.Country}</h3>
+                </div>
+                <h3 className="text-md md:text-lg mt-2">{Search.Condition}</h3>
+                </div>
+                <div>
+                  <h2 className="text-2xl lg:text-4xl font-bold self-start">{Search.Temperature}°C</h2>
+                </div>
+              </NavLink>
+            </div>
+          );
+        })}
 
       </div>
 

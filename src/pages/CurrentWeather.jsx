@@ -15,6 +15,7 @@ import getData from "../Functions/Dispatch";
 import { addSearchItem } from "../Slices/searchList";
 import videos, { icons, color } from "../Functions/Videos";
 import simplifyCondition from "../Functions/SimplifyCondition";
+import CustomAlert from "../Component/Alert";
 
 function CurrentWeather() {
   const SearchData = useSelector((state) => state.searches.searchList);
@@ -23,6 +24,8 @@ function CurrentWeather() {
   const [City, setCity] = useState(null);
   const [weather, setWeather] = useState(null);
   const [simplifiedCondition, setSimplifiedCondition] = useState(null);
+  const [alert,setalert]=useState(false);
+  const [alertMessage,setalertMessage]=useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +44,8 @@ function CurrentWeather() {
           dispatch(addSearchItem(searchItem));
           setSimplifiedCondition(simplifyCondition(data.current.condition.text, weather?.Time));
         } else {
-          alert("City not found. Please try again.");
+          setalertMessage(data.error.message);
+          setalert(true);
           navigate('/');
         }
       });
@@ -75,7 +79,9 @@ function CurrentWeather() {
         Your browser does not support the video tag.
       </video>
       <div className="min-h-screen w-full text-black dark:text-white px-4 py-6 sm:px-10 lg:px-24 xl:px-32 space-y-8">
-        
+        {alert && (
+      <CustomAlert message={alertMessage} onClose={()=>setalert(false)}/> 
+        )}
         {/* 🔄 Refresh Button (Top Right of Weather Block) */}
         <div className="flex justify-end max-w-2xl mx-auto lg:absolute lg:right-10 lg:top-10 ">
           <button
