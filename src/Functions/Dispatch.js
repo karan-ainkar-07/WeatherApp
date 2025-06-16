@@ -39,7 +39,7 @@ function getData(data) {
             precipitation: day.day.totalprecip_mm,
             windSpeed: day.day.maxwind_kph,
             humidity: day.day.avghumidity,
-            AirQuality: day.day.air_quality['us-epa-index'],
+            rainChances: day.day.daily_chance_of_rain
         }
     )),
 

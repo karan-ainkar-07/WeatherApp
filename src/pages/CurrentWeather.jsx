@@ -171,8 +171,8 @@ function CurrentWeather() {
                   <span className="text-sm sm:text-base lg:text-lg font-medium">{day.maxTemp}°</span>
                 </div>
                 <div className="flex flex-col items-center space-y-1">
-                  <h4 className="text-xs sm:text-sm lg:text-base opacity-80">Air Quality</h4>
-                  <span className="text-sm sm:text-base lg:text-lg font-medium">{day.AirQuality}</span>
+                  <h4 className="text-xs sm:text-sm lg:text-base opacity-80">Rain Chances</h4>
+                  <span className="text-sm sm:text-base lg:text-lg font-medium">{day.rainChances}%</span>
                 </div>
                 <div className="flex flex-col items-center space-y-1">
                   <h4 className="text-xs sm:text-sm lg:text-base opacity-80">Humidity</h4>
