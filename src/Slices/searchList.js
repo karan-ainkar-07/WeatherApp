@@ -10,28 +10,39 @@ export const searchListSlice = createSlice({
   initialState,
   reducers: {
     addSearchItem: (state, action) => {
-      const cityKey = action.payload.City.toLowerCase();
-      if(!state.searchOrder.includes(cityKey)) {
+      const payload = action.payload;
+      const cityKey = payload.City.toLowerCase();
+
+      // Add to order only if not already added
+      if (!state.searchOrder.includes(cityKey)) {
         state.searchOrder.push(cityKey);
       }
-      state.searchList[cityKey] = {
-        City: action.payload.City,
-        Country: action.payload.Country,
-        Temperature: action.payload.Temperature,
-        Condition: action.payload.Condition,
-        Time: action.payload.Time,
-        hourlyForecast: action.payload.hourlyForecast,
-        dailyForecast: action.payload.dailyForecast,
-        Precipitation: action.payload.Precipitation,
-        AirQuality: action.payload.AirQuality,
-        Humidity: action.payload.Humidity,
-        Wind:action.payload.Wind,
-        FeelsLike: action.payload.FeelsLike,
-        UVIndex: action.payload.UVIndex,
-        Visibility: action.payload.Visibility,
-      };
-    }
-  }
+
+      // List of fields to copy from payload
+      const fields = [
+        'City',
+        'Country',
+        'Temperature',
+        'Condition',
+        'Time',
+        'hourlyForecast',
+        'dailyForecast',
+        'Precipitation',
+        'AirQuality',
+        'Humidity',
+        'Wind',
+        'FeelsLike',
+        'UVIndex',
+        'Visibility',
+      ];
+
+      // Build the object safely using reduce
+      state.searchList[cityKey] = fields.reduce((acc, field) => {
+        acc[field] = field in payload ? payload[field] : null;
+        return acc;
+      }, {});
+    },
+  },
 });
 
 export const { addSearchItem } = searchListSlice.actions;
